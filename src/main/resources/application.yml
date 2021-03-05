@@ -1,0 +1,5 @@
+base-url:
+  context: /api/library/v1.0
+
+log:
+  identifierKey: UUID

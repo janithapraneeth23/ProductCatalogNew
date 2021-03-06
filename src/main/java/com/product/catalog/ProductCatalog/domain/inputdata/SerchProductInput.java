@@ -1,4 +1,4 @@
-package com.product.catalog.ProductCatalog.domain;
+package com.product.catalog.ProductCatalog.domain.inputdata;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

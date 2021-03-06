@@ -3,16 +3,15 @@ package com.product.catalog.ProductCatalog.domain;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
 @ToString
-public class Product2 {
+public class Product {
 
     @Id
-    long id;
+    long productId;
     String itemName;
-    String ItemName;
     String type;
 
     public void setId(long id) {
-        this.id = id;
+        this.productId = id;
     }
 
     public String getType() {
@@ -23,18 +22,17 @@ public class Product2 {
         this.type = type;
     }
 
-    public Product2(long id, String itemName, String ItemName) {
-        this.id = id;
+    public Product(long id, String itemName) {
+        this.productId = id;
         this.itemName = itemName;
-        this.ItemName = ItemName;
     }
 
     public long getId() {
-        return id;
+        return productId;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.productId = id;
     }
 
     public String getItemName() {

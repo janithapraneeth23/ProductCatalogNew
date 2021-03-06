@@ -3,3 +3,8 @@ base-url:
 
 log:
   identifierKey: UUID
+
+server:
+  port: 8085
+
+

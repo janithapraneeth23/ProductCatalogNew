@@ -2,6 +2,7 @@ package com.product.catalog.ProductCatalog.app.controller;
 
 import com.product.catalog.ProductCatalog.domain.BestDeals;
 import com.product.catalog.ProductCatalog.domain.Deal;
+import com.product.catalog.ProductCatalog.domain.Product;
 import com.product.catalog.ProductCatalog.domain.inputdata.GrabProductInput;
 import com.product.catalog.ProductCatalog.external.reposatory.DealRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.Optional;
 
 @RestController
@@ -21,16 +22,17 @@ public class ProductDetailsGrabber {
     @Autowired
     DealRepo dealRepo;
 
-    @PostMapping(value = "/GrapBastDeal")
+    @PostMapping(value = "/GrapBestDeal")
     public BestDeals searchDeals(@RequestBody GrabProductInput newGrabProductInput) {
 
         long productId = newGrabProductInput.getProductId();
-        Optional<Deal> dealItem =  dealRepo.findAllByProductId(productId);
-        Map<Long, Deal> dealList = new HashMap();
+        Optional<List<Deal>> dealItem =  dealRepo.findAllByProductId(productId);
         if(dealItem.isPresent()) {
-            dealList.put(productId, dealItem.get());
+            List<Deal> nonOptionalData = dealItem.get();
+            BestDeals bd = new BestDeals(productId, "Test",nonOptionalData);
+            return bd;
         }
-
+        List<Deal> dealList = new ArrayList();
         BestDeals bd = new BestDeals(productId, "Test",dealList);
         return bd;
     }

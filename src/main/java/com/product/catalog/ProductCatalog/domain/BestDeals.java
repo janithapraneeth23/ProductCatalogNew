@@ -3,14 +3,14 @@ package com.product.catalog.ProductCatalog.domain;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
 
-import java.util.Map;
+import java.util.*;
 
 @ToString
 public class BestDeals {
     @Id
     long productId;
     String itemName;
-    Map<Long, Deal> dealList;
+    List<Deal> dealList;
 
     public long getId() {
         return productId;
@@ -28,15 +28,15 @@ public class BestDeals {
         this.itemName = itemName;
     }
 
-    public Map<Long, Deal> getDealList() {
+    public List<Deal> getDealList() {
         return dealList;
     }
 
-    public void setDealList(Map<Long, Deal> dealList) {
+    public void setDealList(List<Deal> dealList) {
         this.dealList = dealList;
     }
 
-    public BestDeals(long id, String itemName, Map<Long, Deal> dealList) {
+    public BestDeals(long id, String itemName, List<Deal> dealList) {
         this.productId = id;
         this.itemName = itemName;
         this.dealList = dealList;

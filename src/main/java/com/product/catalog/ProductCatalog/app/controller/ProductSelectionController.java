@@ -10,13 +10,6 @@ import java.util.Map;
 @RequestMapping(value = "/products")
 public class ProductSelectionController extends BaseController{
 
-   /* @GetMapping(value = "/find/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Product findBook(@Validated @PathVariable Integer id, HttpServletRequest request) {
-        setLogIdentifier(request);
-
-        return new Product(5, "janitha");
-    }*/
-
     @PostMapping(value = "/SearchProduct")
     public Map<Integer, Product> searchProduct(@RequestBody SerchProductInput newSerchProductInput) {
 

@@ -19,6 +19,13 @@
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
+				<groupId>com.google.cloud</groupId>
+				<artifactId>libraries-bom</artifactId>
+				<version>19.0.0</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-gcp-dependencies</artifactId>
 				<version>1.2.3.RELEASE</version>
@@ -34,7 +41,10 @@
 			<artifactId>spring-cloud-gcp-starter-data-datastore</artifactId>
 			<version>2.0.1</version>
 		</dependency>
-
+		<dependency>
+			<groupId>com.google.cloud</groupId>
+			<artifactId>google-cloud-pubsub</artifactId>
+		</dependency>
 		<!-- Add Spring Shell Starter -->
 		<dependency>
 			<groupId>org.springframework.shell</groupId>
@@ -93,7 +103,6 @@
 	</pluginRepositories>
 
 	<build>
-
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

@@ -10,20 +10,28 @@ public class Deal {
     String creditCardName;
     String offer;
 
-    public long getId() {
-        return productId;
-    }
-
-    public void setId(long id) {
-        this.productId = id;
-    }
-
     public String getCreditCardName() {
         return creditCardName;
     }
 
     public void setCreditCardName(String creditCardName) {
         this.creditCardName = creditCardName;
+    }
+
+    public long getDealId() {
+        return dealId;
+    }
+
+    public void setDealId(long dealId) {
+        this.dealId = dealId;
+    }
+
+    public long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(long productId) {
+        this.productId = productId;
     }
 
     public String getOffer() {
@@ -34,8 +42,9 @@ public class Deal {
         this.offer = offer;
     }
 
-    public Deal(long id, String creditCardName, String offer) {
-        this.productId = id;
+    public Deal(long dealId, long productId, String creditCardName, String offer) {
+        this.dealId = dealId;
+        this.productId = productId;
         this.creditCardName = creditCardName;
         this.offer = offer;
     }

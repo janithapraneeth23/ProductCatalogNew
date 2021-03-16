@@ -31,3 +31,5 @@ build/
 
 ### VS Code ###
 .vscode/
+
+!**/src/main/resources/productcatalog-306703-ca33fe29f44a.json

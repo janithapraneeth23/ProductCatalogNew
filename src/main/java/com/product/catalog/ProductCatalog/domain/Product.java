@@ -9,22 +9,35 @@ public class Product {
     long productId;
     String itemName;
     String type;
+    String desctiption;
 
-    public void setId(long id) {
-        this.productId = id;
+    public long getProductId() {
+        return productId;
     }
 
-    public String getType() {
-        return type;
+    public void setProductId(long productId) {
+        this.productId = productId;
     }
+
+    public String getDesctiption() {
+        return desctiption;
+    }
+
+    public void setDesctiption(String desctiption) {
+        this.desctiption = desctiption;
+    }
+
+
 
     public void setType(String type) {
         this.type = type;
     }
 
-    public Product(long id, String itemName) {
-        this.productId = id;
+    public Product(long productId, String itemName, String type, String desctiption) {
+        this.productId = productId;
         this.itemName = itemName;
+        this.type = type;
+        this.desctiption = desctiption;
     }
 
     public long getId() {

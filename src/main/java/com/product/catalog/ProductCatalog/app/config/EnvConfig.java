@@ -1,20 +1,23 @@
 package com.product.catalog.ProductCatalog.app.config;
 
-
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.beans.factory.annotation.Value;
 
 @Configuration
 @EnableConfigurationProperties
 @ConfigurationProperties(prefix = "msce")
-@Getter
-@Setter
 
 public class EnvConfig {
+    public String getLogIdentifierKey() {
+        return logIdentifierKey;
+    }
+
+    public void setLogIdentifierKey(String logIdentifierKey) {
+        this.logIdentifierKey = logIdentifierKey;
+    }
+
     @Value("${log.identifierKey}")
     private String logIdentifierKey;
 }

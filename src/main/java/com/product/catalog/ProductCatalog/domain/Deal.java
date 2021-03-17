@@ -1,37 +1,59 @@
 package com.product.catalog.ProductCatalog.domain;
 
+import com.google.cloud.spring.data.datastore.core.mapping.Entity;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
+
 @ToString
+@Entity(name = "deals")
 public class Deal {
     @Id
-    long dealId;
-    long productId;
-    String creditCardName;
+    Long dealId;
+
+    Long productId;
+    Long bankCode;
+    String bankName;
+    String cardName;
     String offer;
 
-    public String getCreditCardName() {
-        return creditCardName;
-    }
-
-    public void setCreditCardName(String creditCardName) {
-        this.creditCardName = creditCardName;
-    }
-
-    public long getDealId() {
+    public Long getDealId() {
         return dealId;
     }
 
-    public void setDealId(long dealId) {
+    public void setDealId(Long dealId) {
         this.dealId = dealId;
     }
 
-    public long getProductId() {
+    public Long getProductId() {
         return productId;
     }
 
-    public void setProductId(long productId) {
+    public void setProductId(Long productId) {
         this.productId = productId;
+    }
+
+    public Long getBankCode() {
+        return bankCode;
+    }
+
+    public void setBankCode(Long bankCode) {
+        this.bankCode = bankCode;
+    }
+
+    public String getBankName() {
+        return bankName;
+    }
+
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
+    }
+
+    public String getCardName() {
+        return cardName;
+    }
+
+    public void setCardName(String cardName) {
+        this.cardName = cardName;
     }
 
     public String getOffer() {
@@ -42,10 +64,11 @@ public class Deal {
         this.offer = offer;
     }
 
-    public Deal(long dealId, long productId, String creditCardName, String offer) {
-        this.dealId = dealId;
+    public Deal(Long productId, Long bankCode, String bankName, String cardName, String offer) {
         this.productId = productId;
-        this.creditCardName = creditCardName;
+        this.bankCode = bankCode;
+        this.bankName = bankName;
+        this.cardName = cardName;
         this.offer = offer;
     }
 }

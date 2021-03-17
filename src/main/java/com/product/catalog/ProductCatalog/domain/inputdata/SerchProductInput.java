@@ -5,9 +5,20 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class SerchProductInput {
     String productWildCard;
+    String mainFeature;
+
+    public String getMainFeature() {
+        return mainFeature;
+    }
+
+    public void setMainFeature(String mainFeature) {
+        this.mainFeature = mainFeature;
+    }
+
     @JsonCreator
-    public SerchProductInput(@JsonProperty("productWildCard") String productWildCard) {
+    public SerchProductInput(@JsonProperty("mainFeature") String mainFeature,  @JsonProperty("productWildCard") String productWildCard) {
         this.productWildCard = productWildCard;
+        this.mainFeature = mainFeature;
     }
 
     public String getProductWildCard() {

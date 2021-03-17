@@ -7,5 +7,7 @@ import java.util.*;
 
 public interface ProductRepo extends DatastoreRepository<Product, Long> {
     public Optional<List<Product>> findByItemName(String itemName);
+
+    public Optional<List<Product>> findByItemType(String itemType);
 }
 

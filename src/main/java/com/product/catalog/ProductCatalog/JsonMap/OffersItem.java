@@ -8,7 +8,7 @@ public class OffersItem{
 	private String offer;
 
 	@JsonProperty("bankCode")
-	private String bankCode;
+	private Long bankCode;
 
 	@JsonProperty("CardName")
 	private String cardName;
@@ -24,11 +24,11 @@ public class OffersItem{
 		return offer;
 	}
 
-	public void setBankCode(String bankCode){
+	public void setBankCode(Long bankCode){
 		this.bankCode = bankCode;
 	}
 
-	public String getBankCode(){
+	public Long getBankCode(){
 		return bankCode;
 	}
 

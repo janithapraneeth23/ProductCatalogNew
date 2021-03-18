@@ -1,7 +1,8 @@
 package com.product.catalog.ProductCatalog.JsonMap;
 
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.List;
 
 public class ProductsItem{
 
@@ -18,7 +19,7 @@ public class ProductsItem{
 	private String itemType;
 
 	@JsonProperty("itemCode")
-	private Integer itemCode;
+	private Long itemCode;
 
 	@JsonProperty("desctiption")
 	private String desctiption;
@@ -55,11 +56,11 @@ public class ProductsItem{
 		return itemType;
 	}
 
-	public void setItemCode(Integer itemCode){
+	public void setItemCode(Long itemCode){
 		this.itemCode = itemCode;
 	}
 
-	public Integer getItemCode(){
+	public Long getItemCode(){
 		return itemCode;
 	}
 

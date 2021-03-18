@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class SerchProductInput {
-    String productWildCard;
+    String features;
     String mainFeature;
 
     public String getMainFeature() {
@@ -16,16 +16,16 @@ public class SerchProductInput {
     }
 
     @JsonCreator
-    public SerchProductInput(@JsonProperty("mainFeature") String mainFeature,  @JsonProperty("productWildCard") String productWildCard) {
-        this.productWildCard = productWildCard;
+    public SerchProductInput(@JsonProperty("mainFeature") String mainFeature,  @JsonProperty("features") String features) {
+        this.features = features;
         this.mainFeature = mainFeature;
     }
 
-    public String getProductWildCard() {
-        return productWildCard;
+    public String getFeatures() {
+        return features;
     }
 
-    public void setProductWildCard(String productWildCard) {
-        this.productWildCard = productWildCard;
+    public void setFeatures(String features) {
+        this.features = features;
     }
 }

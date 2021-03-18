@@ -8,6 +8,7 @@ import com.google.cloud.pubsub.v1.MessageReceiver;
 import com.google.cloud.pubsub.v1.Subscriber;
 import com.google.pubsub.v1.ProjectSubscriptionName;
 import com.google.pubsub.v1.PubsubMessage;
+import com.product.catalog.ProductCatalog.JsonMap.OffersItem;
 import com.product.catalog.ProductCatalog.JsonMap.Products;
 import com.product.catalog.ProductCatalog.JsonMap.ProductsItem;
 import com.product.catalog.ProductCatalog.domain.Deal;
@@ -15,6 +16,7 @@ import com.product.catalog.ProductCatalog.domain.Product;
 import com.product.catalog.ProductCatalog.external.reposatory.DealRepo;
 import com.product.catalog.ProductCatalog.external.reposatory.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
@@ -30,30 +32,45 @@ public class ProductManageService {
     @Autowired
     DealRepo dealRepo;
 
+    @Value("${pubsub.projectId}")
+    private String projectId;
+    @Value("${pubsub.subscriptionId}")
+    private String subscriptionId;
+
+
     @Bean
     public void saveProduct() {
-       Set<String> tagList = new HashSet<String>();
-       tagList.add("Nike");
-       tagList.add("Black");
-       Product p1 = new Product(555L, 12L, "Nike T-Shirt", "T-Shirt", "Nike T-Shirt Black", "Empty Image", tagList);
-       Product savedProduct = productRepo.save(p1);
-       savedProduct.getId();
-
-       Deal d1 = new Deal(savedProduct.getId(), 024L, "Sampath", "Sampath Amex Credit Credit", "10% discount");
-       dealRepo.save(d1);
-        Deal d2 = new Deal(savedProduct.getId(), 024L, "NTB", "NTB Amex Credit Credit", "15% discount");
-        dealRepo.save(d2);
-
        subscribeAsyncProductInput("productcatelog", "janiSub");
-
-
-        //Optional<Product> p2 = productRepo.findByItemName("Adidas Tshirt");
-       /* if(p2.isPresent()) {
-            System.out.println(p2.toString());
-        }*/
+       //projectId.toString(), subscriptionId.toString());
     }
-    
-    public static void subscribeAsyncProductInput(String projectId, String subscriptionId) {
+
+    public void addToTheDatabase(Products productJson){
+        for(ProductsItem productsItem : productJson.getProducts())
+        {
+            String tagString = productsItem.getDesctiption() + " " + productsItem.getItemName();
+            String [] tags = tagString.split(" ");
+            Set<String> tagList = new HashSet<>();
+            for(String tag: tags)
+                tagList.add(tag);
+
+            tagList.remove(productsItem.getItemType());
+
+            Product p2 = new Product( productsItem.getItemCode(), productJson.getShopCode(),  productsItem.getItemName(), productsItem.getItemType(), productsItem.getDesctiption(),
+                    productsItem.getImage(), tagList);
+            Product savedProduct = productRepo.save(p2);
+            savedProduct.getId();
+
+            if(savedProduct.getId() > 0){
+                for(OffersItem deal : productsItem.getOffers()){
+                    Deal tmpDeal = new Deal(savedProduct.getId(), deal.getBankCode(), deal.getBankName(), deal.getCardName(), deal.getOffer());
+                    dealRepo.save(tmpDeal);
+                }
+
+
+            }
+        }
+    }
+    public void subscribeAsyncProductInput(String projectId, String subscriptionId) {
         ProjectSubscriptionName subscriptionName =
                 ProjectSubscriptionName.of(projectId, subscriptionId);
 
@@ -69,9 +86,7 @@ public class ProductManageService {
                     ObjectMapper mapper = new ObjectMapper();
                     try {
                         productJson = mapper.readValue(message.getData().toStringUtf8(), Products.class);
-                        for(ProductsItem productsItem : productJson.getProducts()){
-
-                        }
+                        addToTheDatabase(productJson);
 
                     } catch (JsonGenerationException e)
                     {

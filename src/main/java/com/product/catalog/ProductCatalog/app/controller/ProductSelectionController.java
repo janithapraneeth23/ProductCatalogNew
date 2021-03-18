@@ -22,7 +22,7 @@ public class ProductSelectionController extends BaseController{
     public List<Product> searchProduct(@RequestBody SerchProductInput newSerchProductInput) {
 
         String mainFeature = newSerchProductInput.getMainFeature();
-        String productWildCard = newSerchProductInput.getProductWildCard();
+        String productWildCard = newSerchProductInput.getFeatures();
         String [] tags = productWildCard.split("\\|");
         Set<String> tagSet = new HashSet<>();
         for(String tag: tags)
@@ -34,9 +34,9 @@ public class ProductSelectionController extends BaseController{
             List<Product> nonOptionalData = productItemWithoutFilter.get();
             List<Product> tmps = new ArrayList<>();
             for(Product p1: nonOptionalData) {
-                Set<String> tagSetDB = p1.getTagSet();
-                tagSet.retainAll(tagSetDB);
-                if(tagSet.size()>0){
+                Set<String> tagSetDB = new HashSet<>(p1.getTagSet());
+                tagSetDB.retainAll(tagSet);
+                if(tagSetDB.size()>0){
                     tmps.add(p1);
                 }
             }

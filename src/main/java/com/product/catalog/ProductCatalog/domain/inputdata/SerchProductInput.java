@@ -3,8 +3,10 @@ package com.product.catalog.ProductCatalog.domain.inputdata;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.List;
+
 public class SerchProductInput {
-    String features;
+    List<String> features;
     String mainFeature;
 
     public String getMainFeature() {
@@ -16,16 +18,16 @@ public class SerchProductInput {
     }
 
     @JsonCreator
-    public SerchProductInput(@JsonProperty("mainFeature") String mainFeature,  @JsonProperty("features") String features) {
+    public SerchProductInput(@JsonProperty("mainFeature") String mainFeature,  @JsonProperty("features") List<String> features) {
         this.features = features;
         this.mainFeature = mainFeature;
     }
 
-    public String getFeatures() {
+    public List<String> getFeatures() {
         return features;
     }
 
-    public void setFeatures(String features) {
+    public void setFeatures(List<String> features) {
         this.features = features;
     }
 }

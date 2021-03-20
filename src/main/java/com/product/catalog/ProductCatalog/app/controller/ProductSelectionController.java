@@ -1,48 +1,35 @@
 package com.product.catalog.ProductCatalog.app.controller;
 
-import com.product.catalog.ProductCatalog.domain.Product;
 import com.product.catalog.ProductCatalog.domain.inputdata.SerchProductInput;
-import com.product.catalog.ProductCatalog.external.reposatory.ProductRepo;
+import com.product.catalog.ProductCatalog.domain.outputdata.SearchProductOutput;
+import com.product.catalog.ProductCatalog.domain.service.ProductSelectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 
 @RestController
 @RequestMapping(value = "/products")
 public class ProductSelectionController extends BaseController{
 
     @Autowired
-    ProductRepo productRepo;
+    ProductSelectionService productSelectionService;
 
     @PostMapping(value = "/SearchProduct")
-    public List<Product> searchProduct(@RequestBody SerchProductInput newSerchProductInput) {
+    public SearchProductOutput searchProduct(@RequestBody SerchProductInput newSerchProductInput) throws Exception {
 
+        //controller
         String mainFeature = newSerchProductInput.getMainFeature();
-        String productWildCard = newSerchProductInput.getFeatures();
-        String [] tags = productWildCard.split("\\|");
-        Set<String> tagSet = new HashSet<>();
-        for(String tag: tags)
-            tagSet.add(tag);
+        List<String> features = newSerchProductInput.getFeatures();
+        Set<String> tagSet = new HashSet<>(features);
 
-
-        Optional<List<Product>> productItemWithoutFilter =  productRepo.findByItemType(mainFeature);
-        if(productItemWithoutFilter.isPresent()) {
-            List<Product> nonOptionalData = productItemWithoutFilter.get();
-            List<Product> tmps = new ArrayList<>();
-            for(Product p1: nonOptionalData) {
-                Set<String> tagSetDB = new HashSet<>(p1.getTagSet());
-                tagSetDB.retainAll(tagSet);
-                if(tagSetDB.size()>0){
-                    tmps.add(p1);
-                }
-            }
-            return tmps;
-        }
-        List<Product> productList = new ArrayList();
-        return productList;
+        //domain call
+        return productSelectionService.ProductSelection(mainFeature, tagSet);
     }
 }

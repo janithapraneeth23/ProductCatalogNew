@@ -1,35 +1,17 @@
-package com.product.catalog.ProductCatalog.domain;
+package com.product.catalog.ProductCatalog.domain.outputdata;
 
-import lombok.ToString;
-import org.springframework.data.annotation.Id;
-import com.google.cloud.spring.data.datastore.core.mapping.Entity;
+import com.product.catalog.ProductCatalog.external.entity.Product;
 
-import java.util.Set;
+public class SearchProductOutputDataItem {
 
-@ToString
-@Entity(name = "products")
-public class Product {
-
-    @Id
     Long id;
-
     Long itemCode;
     Long shopCode;
+    String shopName;
     String itemName;
     String itemType;
     String description;
     String image;
-    Set<String> tagSet;
-
-    public Product(Long itemCode, Long shopCode, String itemName, String itemType, String description, String image, Set<String> tagSet) {
-        this.itemCode = itemCode;
-        this.shopCode = shopCode;
-        this.itemName = itemName;
-        this.itemType = itemType;
-        this.description = description;
-        this.image = image;
-        this.tagSet = tagSet;
-    }
 
     public Long getId() {
         return id;
@@ -53,6 +35,14 @@ public class Product {
 
     public void setShopCode(Long shopCode) {
         this.shopCode = shopCode;
+    }
+
+    public String getShopName() {
+        return shopName;
+    }
+
+    public void setShopName(String shopName) {
+        this.shopName = shopName;
     }
 
     public String getItemName() {
@@ -87,11 +77,14 @@ public class Product {
         this.image = image;
     }
 
-    public Set<String> getTagSet() {
-        return tagSet;
-    }
-
-    public void setTagSet(Set<String> tagSet) {
-        this.tagSet = tagSet;
+    public SearchProductOutputDataItem(Product entityProduct) {
+        this.id = entityProduct.getId();
+        this.itemCode = entityProduct.getItemCode();
+        this.shopCode = entityProduct.getShopCode();
+        this.shopName = entityProduct.getShopName();
+        this.itemName = entityProduct.getItemName();
+        this.itemType = entityProduct.getItemType();
+        this.description = entityProduct.getDescription();
+        this.image = entityProduct.getImage();
     }
 }

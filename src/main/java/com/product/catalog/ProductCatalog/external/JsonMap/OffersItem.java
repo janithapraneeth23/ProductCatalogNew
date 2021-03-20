@@ -1,4 +1,4 @@
-package com.product.catalog.ProductCatalog.JsonMap;
+package com.product.catalog.ProductCatalog.external.JsonMap;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -10,7 +10,7 @@ public class OffersItem{
 	@JsonProperty("bankCode")
 	private Long bankCode;
 
-	@JsonProperty("CardName")
+	@JsonProperty("cardName")
 	private String cardName;
 
 	@JsonProperty("bankName")

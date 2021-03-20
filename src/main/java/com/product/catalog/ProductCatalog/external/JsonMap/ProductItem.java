@@ -1,10 +1,13 @@
-package com.product.catalog.ProductCatalog.JsonMap;
+package com.product.catalog.ProductCatalog.external.JsonMap;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
-public class ProductsItem{
+public class ProductItem {
+
+	@JsonProperty("shopCode")
+	private Long shopCode;
 
 	@JsonProperty("offers")
 	private List<OffersItem> offers;
@@ -21,8 +24,19 @@ public class ProductsItem{
 	@JsonProperty("itemCode")
 	private Long itemCode;
 
-	@JsonProperty("desctiption")
-	private String desctiption;
+	@JsonProperty("shopName")
+	private String shopName;
+
+	@JsonProperty("description")
+	private String description;
+
+	public void setShopCode(Long shopCode){
+		this.shopCode = shopCode;
+	}
+
+	public Long getShopCode(){
+		return shopCode;
+	}
 
 	public void setOffers(List<OffersItem> offers){
 		this.offers = offers;
@@ -64,11 +78,19 @@ public class ProductsItem{
 		return itemCode;
 	}
 
-	public void setDesctiption(String desctiption){
-		this.desctiption = desctiption;
+	public void setShopName(String shopName){
+		this.shopName = shopName;
 	}
 
-	public String getDesctiption(){
-		return desctiption;
+	public String getShopName(){
+		return shopName;
+	}
+
+	public void setDescription(String description){
+		this.description = description;
+	}
+
+	public String getDescription(){
+		return description;
 	}
 }

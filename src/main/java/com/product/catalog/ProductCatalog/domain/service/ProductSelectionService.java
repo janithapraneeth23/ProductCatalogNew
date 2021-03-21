@@ -2,7 +2,7 @@ package com.product.catalog.ProductCatalog.domain.service;
 
 import com.product.catalog.ProductCatalog.domain.outputdata.SearchProductOutput;
 import com.product.catalog.ProductCatalog.domain.outputdata.SearchProductOutputDataItem;
-import com.product.catalog.ProductCatalog.external.entity.Product;
+import com.product.catalog.ProductCatalog.domain.entity.Product;
 import com.product.catalog.ProductCatalog.external.reposatoryCalls.NoSqlService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,8 +23,6 @@ public class ProductSelectionService {
             Set<String> tagSetDB = new HashSet<>(p1.getTagSet());
             tagSetDB.retainAll(tagSet);
             if(tagSetDB.size()>0){
-
-
                 mapSortByTagCount.put(p1, tagSetDB.size());
             }
         }
@@ -33,6 +31,7 @@ public class ProductSelectionService {
                 .stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .forEachOrdered(x -> reverseSortedMap.put(x.getKey(), x.getValue()));
+
 
         List<SearchProductOutputDataItem> searchProductOutputDataItemList =  new ArrayList();
         int itemCont = 0;

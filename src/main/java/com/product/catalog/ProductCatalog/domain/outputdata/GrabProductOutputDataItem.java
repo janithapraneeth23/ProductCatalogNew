@@ -1,7 +1,7 @@
 package com.product.catalog.ProductCatalog.domain.outputdata;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.product.catalog.ProductCatalog.external.entity.Deal;
+import com.product.catalog.ProductCatalog.domain.entity.Deal;
 
 public class GrabProductOutputDataItem {
 

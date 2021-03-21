@@ -1,4 +1,4 @@
-package com.product.catalog.ProductCatalog.external.entity;
+package com.product.catalog.ProductCatalog.domain.entity;
 
 import com.google.cloud.spring.data.datastore.core.mapping.Entity;
 import lombok.ToString;

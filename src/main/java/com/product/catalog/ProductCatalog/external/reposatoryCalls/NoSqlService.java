@@ -1,10 +1,10 @@
 package com.product.catalog.ProductCatalog.external.reposatoryCalls;
 
+import com.product.catalog.ProductCatalog.domain.entity.Deal;
+import com.product.catalog.ProductCatalog.domain.entity.Product;
 import com.product.catalog.ProductCatalog.external.JsonMap.OffersItem;
 import com.product.catalog.ProductCatalog.external.JsonMap.ProductItem;
 import com.product.catalog.ProductCatalog.external.JsonMap.PubSubInput;
-import com.product.catalog.ProductCatalog.external.entity.Deal;
-import com.product.catalog.ProductCatalog.external.entity.Product;
 import com.product.catalog.ProductCatalog.external.reposatory.DealRepo;
 import com.product.catalog.ProductCatalog.external.reposatory.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,17 +51,17 @@ public class NoSqlService {
 
             Product p2 = new Product( productItem.getItemCode(), productItem.getShopCode(), productItem.getShopName(), productItem.getItemName(), productItem.getItemType(), productItem.getDescription(),
                     productItem.getImage(), tagList);
-            Product savedProduct = productRepo.save(p2);
-            savedProduct.getId();
 
-            if(savedProduct.getId() > 0){
-                for(OffersItem offersItem : productItem.getOffers()){
-                    Deal tmpDeal = new Deal(savedProduct.getId(), offersItem.getBankCode(), offersItem.getBankName(), offersItem.getCardName(), offersItem.getOffer());
-                    dealRepo.save(tmpDeal);
+                Product savedProduct = productRepo.save(p2);
+                savedProduct.getId();
+                if(savedProduct.getId() > 0){
+                    for(OffersItem offersItem : productItem.getOffers()){
+                        Deal tmpDeal = new Deal(savedProduct.getId(), offersItem.getBankCode(), offersItem.getBankName(), offersItem.getCardName(), offersItem.getOffer());
+                        dealRepo.save(tmpDeal);
+                    }
                 }
 
 
-            }
         }
     }
 

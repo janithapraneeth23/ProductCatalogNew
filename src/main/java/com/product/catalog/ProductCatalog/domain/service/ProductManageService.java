@@ -12,7 +12,7 @@ public class ProductManageService {
     PubSubConnection pubSubConnection;
 
     @Bean
-    public void saveProduct() {
+    public void saveProduct() throws Exception {
         pubSubConnection.subscribeAsyncProductInput();
     }
 

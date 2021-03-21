@@ -1,4 +1,4 @@
-package com.product.catalog.ProductCatalog.external.entity;
+package com.product.catalog.ProductCatalog.domain.entity;
 
 import lombok.ToString;
 import org.springframework.data.annotation.Id;

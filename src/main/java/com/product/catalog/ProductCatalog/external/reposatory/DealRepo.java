@@ -1,7 +1,7 @@
 package com.product.catalog.ProductCatalog.external.reposatory;
 
 import com.google.cloud.spring.data.datastore.repository.DatastoreRepository;
-import com.product.catalog.ProductCatalog.external.entity.Deal;
+import com.product.catalog.ProductCatalog.domain.entity.Deal;
 
 import java.util.*;
 

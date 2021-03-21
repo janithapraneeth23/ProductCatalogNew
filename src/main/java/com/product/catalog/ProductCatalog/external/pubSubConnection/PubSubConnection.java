@@ -9,6 +9,7 @@ import com.google.cloud.pubsub.v1.Subscriber;
 import com.google.pubsub.v1.ProjectSubscriptionName;
 import com.google.pubsub.v1.PubsubMessage;
 import com.product.catalog.ProductCatalog.external.JsonMap.PubSubInput;
+import com.product.catalog.ProductCatalog.external.exception.DatastoreException;
 import com.product.catalog.ProductCatalog.external.reposatoryCalls.NoSqlService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,7 +28,7 @@ public class PubSubConnection {
     @Value("${pubsub.subscriptionId}")
     String subscriptionId = "janiSub";
 
-    public void subscribeAsyncProductInput() {
+    public void subscribeAsyncProductInput() throws Exception{
         ProjectSubscriptionName subscriptionName =
                 ProjectSubscriptionName.of(projectId, subscriptionId);
 

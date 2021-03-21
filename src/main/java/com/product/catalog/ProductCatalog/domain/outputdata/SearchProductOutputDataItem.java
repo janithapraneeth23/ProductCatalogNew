@@ -1,6 +1,6 @@
 package com.product.catalog.ProductCatalog.domain.outputdata;
 
-import com.product.catalog.ProductCatalog.external.entity.Product;
+import com.product.catalog.ProductCatalog.domain.entity.Product;
 
 public class SearchProductOutputDataItem {
 

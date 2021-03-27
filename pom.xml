@@ -14,7 +14,7 @@
 	<name>ProductCatalog</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
-		<java.version>1.8.0_251</java.version>
+		<java.version>11</java.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
@@ -112,6 +112,15 @@
 					<source>1.8</source>
 					<target>1.8</target>
 
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.google.cloud.tools</groupId>
+				<artifactId>appengine-maven-plugin</artifactId>
+				<version>2.2.0</version>
+				<configuration>
+					<version>1</version>
+					<projectId>GCLOUD_CONFIG</projectId>
 				</configuration>
 			</plugin>
 		</plugins>

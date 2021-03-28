@@ -1,9 +1,5 @@
 package com.product.catalog.ProductCatalog.external.reposatoryCalls;
 
-import com.google.cloud.storage.BlobId;
-import com.google.cloud.storage.BlobInfo;
-import com.google.cloud.storage.Storage;
-import com.google.cloud.storage.StorageOptions;
 import com.product.catalog.ProductCatalog.domain.entity.Deal;
 import com.product.catalog.ProductCatalog.domain.entity.Product;
 import com.product.catalog.ProductCatalog.external.JsonMap.OffersItem;
@@ -11,8 +7,8 @@ import com.product.catalog.ProductCatalog.external.JsonMap.ProductItem;
 import com.product.catalog.ProductCatalog.external.JsonMap.PubSubInput;
 import com.product.catalog.ProductCatalog.external.reposatory.DealRepo;
 import com.product.catalog.ProductCatalog.external.reposatory.ProductRepo;
+import com.product.catalog.ProductCatalog.external.storageCalls.StorageCalls;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -26,6 +22,8 @@ public class NoSqlService {
 
     @Autowired
     DealRepo dealRepo;
+    @Autowired
+    StorageCalls storageCalls;
 
     public List<Product> ProductSelectionNoSqlService(String mainFeature) {
         Optional<List<Product>> productItemWithoutFilter = productRepo.findByItemType(mainFeature);
@@ -44,9 +42,6 @@ public class NoSqlService {
         return new ArrayList<>();
     }
 
-    @Value("gs://newproductcate/my-file.txt")
-    private String gcsResource;
-
     public void addToTheDatabase(PubSubInput pubSubInput)  throws IOException {
         for(ProductItem productItem : pubSubInput.getData())
         {
@@ -62,18 +57,11 @@ public class NoSqlService {
                     "", tagList);
 
                 Product savedProduct = productRepo.save(p2);
+                System.out.println("Adding Items To Database");
                 System.out.println(savedProduct);
                 savedProduct.getId();
 
-                String projectId = "productcatelog";
-                String bucketName = "newproductcate";
-                String objectName = savedProduct.getId().toString();
-                String filePath = "/";
-
-                Storage storage = StorageOptions.newBuilder().setProjectId(projectId).build().getService();
-                BlobId blobId = BlobId.of(bucketName, objectName);
-                BlobInfo blobInfo = BlobInfo.newBuilder(blobId).build();
-                storage.create(blobInfo, productItem.getImage().getBytes());
+                storageCalls.saveImageToBucket(productItem.getImage(), savedProduct.getId().toString());
 
                 if(savedProduct.getId() > 0){
                     for(OffersItem offersItem : productItem.getOffers()){

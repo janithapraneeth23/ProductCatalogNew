@@ -35,8 +35,8 @@ public class PubSubConnection {
         MessageReceiver receiver =
                 (PubsubMessage message, AckReplyConsumer consumer) -> {
                     // Handle incoming message, then ack the received message.
-                    System.out.println("Id: " + message.getMessageId());
-                    System.out.println("Data: " + message.getData().toStringUtf8());
+                    //System.out.println("Id: " + message.getMessageId());
+                    //System.out.println("Data: " + message.getData().toStringUtf8());
                     consumer.ack();
 
                     PubSubInput productJson = null;

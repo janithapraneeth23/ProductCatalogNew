@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 
@@ -34,6 +33,8 @@ public class ProductSelectionController extends BaseController{
         //controller
         String mainFeature = serchProductInput.getMainFeature();
         List<String> features = serchProductInput.getFeatures();
+        System.out.println("Feature List");
+        System.out.println(features);
         Set<String> tagSet = new HashSet<>(features);
 
         //domain call

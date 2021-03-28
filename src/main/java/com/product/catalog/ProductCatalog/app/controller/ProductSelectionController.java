@@ -5,6 +5,7 @@ import com.product.catalog.ProductCatalog.domain.outputdata.GrabProductOutput;
 import com.product.catalog.ProductCatalog.domain.outputdata.SearchProductOutput;
 import com.product.catalog.ProductCatalog.domain.service.ProductGrabService;
 import com.product.catalog.ProductCatalog.domain.service.ProductSelectionService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,6 +19,7 @@ import java.util.Set;
 
 
 @RestController
+@Slf4j
 @RequestMapping(value = "${base-url.context}/product")
 public class ProductSelectionController extends BaseController{
 
@@ -33,9 +35,9 @@ public class ProductSelectionController extends BaseController{
         //controller
         String mainFeature = serchProductInput.getMainFeature();
         List<String> features = serchProductInput.getFeatures();
-        System.out.println("Feature List");
-        System.out.println(features);
-        Set<String> tagSet = new HashSet<>(features);
+        log.info("Feature List");
+        log.info(features.toString());
+        Set<String> tagSet = new HashSet <>(features);
 
         //domain call
         return productSelectionService.ProductSelection(mainFeature, tagSet);

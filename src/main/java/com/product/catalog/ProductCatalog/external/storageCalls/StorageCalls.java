@@ -1,9 +1,11 @@
 package com.product.catalog.ProductCatalog.external.storageCalls;
 
 import com.google.cloud.storage.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Service
+@Slf4j
 public class StorageCalls {
 
     public boolean saveImageToBucket(String image, String fileName) {
@@ -12,15 +14,15 @@ public class StorageCalls {
             String bucketName = "newproductcate";
             String objectName = fileName;
             String filePath = "/";
-            System.out.println("Adding Image To Database");
+            log.info("Adding Image To Database");
             Storage storage = StorageOptions.newBuilder().setProjectId(projectId).build().getService();
             BlobId blobId = BlobId.of(bucketName, objectName);
             BlobInfo blobInfo = BlobInfo.newBuilder(blobId).build();
             storage.create(blobInfo, image.getBytes());
             return true;
         }catch(Exception e){
-            System.out.println("Saving Images to Bucket Failed");
-            System.out.println(e.getMessage());
+            log.error("Saving Images to Bucket Failed");
+            log.error(e.getMessage());
         }
         return false;
     }
@@ -33,8 +35,8 @@ public class StorageCalls {
             Blob blob = storage.get(BlobId.of(bucketName, fileName));
             return new String(blob.getContent());
         }catch(Exception e){
-            System.out.println("Feting Image Failed");
-            System.out.println(e.getMessage());
+            log.error("Feting Image Failed");
+            log.error(e.getMessage());
         }
         return new String("");
     }

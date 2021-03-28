@@ -4,6 +4,7 @@ import com.product.catalog.ProductCatalog.domain.outputdata.GrabProductOutput;
 import com.product.catalog.ProductCatalog.domain.outputdata.GrabProductOutputDataItem;
 import com.product.catalog.ProductCatalog.domain.entity.Deal;
 import com.product.catalog.ProductCatalog.external.reposatoryCalls.NoSqlService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Slf4j
 public class ProductGrabService {
     @Autowired
     NoSqlService noSqlService;
@@ -21,6 +23,7 @@ public class ProductGrabService {
         List<GrabProductOutputDataItem> grabProductOutputDataItemList =  new ArrayList();
 
         for(Deal d1: dealList) {
+            log.info(d1.toString());
             grabProductOutputDataItemList.add(new GrabProductOutputDataItem(d1));
 
         }

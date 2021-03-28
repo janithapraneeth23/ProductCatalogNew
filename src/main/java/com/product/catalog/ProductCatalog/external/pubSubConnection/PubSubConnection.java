@@ -10,6 +10,7 @@ import com.google.pubsub.v1.ProjectSubscriptionName;
 import com.google.pubsub.v1.PubsubMessage;
 import com.product.catalog.ProductCatalog.external.JsonMap.PubSubInput;
 import com.product.catalog.ProductCatalog.external.reposatoryCalls.NoSqlService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 
 @Service
+@Slf4j
 public class PubSubConnection {
 
     @Autowired
@@ -35,17 +37,14 @@ public class PubSubConnection {
         MessageReceiver receiver =
                 (PubsubMessage message, AckReplyConsumer consumer) -> {
                     // Handle incoming message, then ack the received message.
-                    //System.out.println("Id: " + message.getMessageId());
-                    //System.out.println("Data: " + message.getData().toStringUtf8());
+                    log.info("Pub/Sub Id: " + message.getMessageId());
                     consumer.ack();
 
                     PubSubInput productJson = null;
                     ObjectMapper mapper = new ObjectMapper();
                     try {
                         productJson = mapper.readValue(message.getData().toStringUtf8(), PubSubInput.class);
-                        System.out.println(productJson);
                         noSqlService.addToTheDatabase(productJson);
-
                     } catch (JsonGenerationException e)
                     {
                         e.printStackTrace();
@@ -59,17 +58,18 @@ public class PubSubConnection {
                 };
 
         Subscriber subscriber = null;
-        //try {
-        subscriber = Subscriber.newBuilder(subscriptionName, receiver).build();
-        // Start the subscriber.
-        subscriber.startAsync().awaitRunning();
-        System.out.printf("Listening for messages on %s:\n", subscriptionName.toString());
-        // Allow the subscriber to run for 30s unless an unrecoverable error occurs.
-        //subscriber.awaitTerminated(30, TimeUnit.SECONDS);
-        /*} catch (TimeoutException timeoutException) {
-            // Shut down the subscriber after 30s. Stop receiving messages.
-            subscriber.stopAsync();
-        }*/
+        try {
+            subscriber = Subscriber.newBuilder(subscriptionName, receiver).build();
+            // Start the subscriber.subscriber.startAsync().awaitRunning();
+            log.info("Trying to Listening for messages on " +  subscriptionName.toString());
+            // Allow the subscriber to run for 30s unless an unrecoverable error occurs.
+            //subscriber.awaitTerminated(30, TimeUnit.SECONDS);
+            log.info(subscriber.toString());
+        } catch (Exception e) {
+            // Shut down the subscriber after Exception. Stop receiving messages.
+            log.error("Pub/Sub Failed Exception");
+            //subscriber.stopAsync();
+        }
 
 
 

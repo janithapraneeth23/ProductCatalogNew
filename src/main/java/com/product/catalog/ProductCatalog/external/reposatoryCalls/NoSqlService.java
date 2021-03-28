@@ -8,6 +8,7 @@ import com.product.catalog.ProductCatalog.external.JsonMap.PubSubInput;
 import com.product.catalog.ProductCatalog.external.reposatory.DealRepo;
 import com.product.catalog.ProductCatalog.external.reposatory.ProductRepo;
 import com.product.catalog.ProductCatalog.external.storageCalls.StorageCalls;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,7 @@ import java.io.IOException;
 import java.util.*;
 
 @Service
+@Slf4j
 public class NoSqlService {
 
     @Autowired
@@ -57,8 +59,8 @@ public class NoSqlService {
                     "", tagList);
 
                 Product savedProduct = productRepo.save(p2);
-                System.out.println("Adding Items To Database");
-                System.out.println(savedProduct);
+                log.info("Adding Items To Database");
+                log.info(savedProduct.toString());
                 savedProduct.getId();
 
                 storageCalls.saveImageToBucket(productItem.getImage(), savedProduct.getId().toString());

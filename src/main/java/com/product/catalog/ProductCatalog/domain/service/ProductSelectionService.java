@@ -5,12 +5,14 @@ import com.product.catalog.ProductCatalog.domain.outputdata.SearchProductOutput;
 import com.product.catalog.ProductCatalog.domain.outputdata.SearchProductOutputDataItem;
 import com.product.catalog.ProductCatalog.external.reposatoryCalls.NoSqlService;
 import com.product.catalog.ProductCatalog.external.storageCalls.StorageCalls;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
+@Slf4j
 public class ProductSelectionService {
 
     @Autowired
@@ -22,8 +24,9 @@ public class ProductSelectionService {
     public SearchProductOutput ProductSelection(String mainFeature, Set<String> tagSet) {
         List<Product> productList = noSqlService.ProductSelectionNoSqlService(mainFeature);
 
-        System.out.println("Fetching Images");
+        log.info("Fetching Images");
         for (Product p1 : productList) {
+            log.info(p1.toString());
             p1.setImage(storageCalls.fetchImageFromBucket(p1.getId().toString()));
         }
 

@@ -3,6 +3,7 @@ package com.product.catalog.ProductCatalog.domain.entity;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
 import com.google.cloud.spring.data.datastore.core.mapping.Entity;
+import com.google.cloud.spring.data.datastore.core.mapping.Unindexed;
 
 import java.util.Set;
 
@@ -28,7 +29,10 @@ public class Product {
     }
 
     String description;
+
+    @Unindexed
     String image;
+
     Set<String> tagSet;
 
     public Product(Long itemCode, Long shopCode, String shopName, String itemName, String itemType, String description, String image, Set<String> tagSet) {

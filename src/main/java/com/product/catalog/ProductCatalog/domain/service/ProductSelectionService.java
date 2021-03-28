@@ -1,8 +1,12 @@
 package com.product.catalog.ProductCatalog.domain.service;
 
+import com.google.cloud.storage.Blob;
+import com.google.cloud.storage.BlobId;
+import com.google.cloud.storage.Storage;
+import com.google.cloud.storage.StorageOptions;
+import com.product.catalog.ProductCatalog.domain.entity.Product;
 import com.product.catalog.ProductCatalog.domain.outputdata.SearchProductOutput;
 import com.product.catalog.ProductCatalog.domain.outputdata.SearchProductOutputDataItem;
-import com.product.catalog.ProductCatalog.domain.entity.Product;
 import com.product.catalog.ProductCatalog.external.reposatoryCalls.NoSqlService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +21,14 @@ public class ProductSelectionService {
 
     public SearchProductOutput ProductSelection(String mainFeature, Set<String> tagSet) {
         List<Product> productList = noSqlService.ProductSelectionNoSqlService(mainFeature);
+        String projectId = "productcatelog";
+        String bucketName = "newproductcate";
+
+        Storage storage = StorageOptions.newBuilder().setProjectId(projectId).build().getService();
+        for(Product p1: productList) {
+            Blob blob = storage.get(BlobId.of(bucketName, p1.getId().toString()));
+            p1.setImage( new String(blob.getContent()));
+        }
 
         HashMap<Product, Integer> mapSortByTagCount = new HashMap();
         for(Product p1: productList) {

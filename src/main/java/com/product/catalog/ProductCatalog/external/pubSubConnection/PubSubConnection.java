@@ -9,7 +9,6 @@ import com.google.cloud.pubsub.v1.Subscriber;
 import com.google.pubsub.v1.ProjectSubscriptionName;
 import com.google.pubsub.v1.PubsubMessage;
 import com.product.catalog.ProductCatalog.external.JsonMap.PubSubInput;
-import com.product.catalog.ProductCatalog.external.exception.DatastoreException;
 import com.product.catalog.ProductCatalog.external.reposatoryCalls.NoSqlService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -44,6 +43,7 @@ public class PubSubConnection {
                     ObjectMapper mapper = new ObjectMapper();
                     try {
                         productJson = mapper.readValue(message.getData().toStringUtf8(), PubSubInput.class);
+                        System.out.println(productJson);
                         noSqlService.addToTheDatabase(productJson);
 
                     } catch (JsonGenerationException e)

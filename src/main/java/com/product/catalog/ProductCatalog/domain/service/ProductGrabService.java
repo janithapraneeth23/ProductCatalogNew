@@ -27,15 +27,15 @@ public class ProductGrabService {
             grabProductOutputDataItemList.add(new GrabProductOutputDataItem(d1));
 
         }
+        GrabProductOutput grapproductoutput;
         if(grabProductOutputDataItemList.size() > 0){
-            GrabProductOutput grapproductoutput = new GrabProductOutput(grabProductOutputDataItemList, "Operation Success", "00");
-            return grapproductoutput;
+            grapproductoutput = new GrabProductOutput(grabProductOutputDataItemList, "Operation Success", "00");
         }else
         {
-            GrabProductOutput grapproductoutput = new GrabProductOutput(grabProductOutputDataItemList, "Operation Failed", "404");
-            return grapproductoutput;
+            log.info("No Deals for the product");
+            grapproductoutput = new GrabProductOutput(grabProductOutputDataItemList, "Operation Failed", "404");
         }
-
+        return grapproductoutput;
 
 
     }

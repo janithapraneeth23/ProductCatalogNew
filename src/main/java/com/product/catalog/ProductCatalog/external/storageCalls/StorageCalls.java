@@ -35,7 +35,7 @@ public class StorageCalls {
             Blob blob = storage.get(BlobId.of(bucketName, fileName));
             return new String(blob.getContent());
         }catch(Exception e){
-            log.error("Feting Image Failed");
+            log.error("Fetching Image Failed");
             log.error(e.getMessage());
         }
         return new String("");

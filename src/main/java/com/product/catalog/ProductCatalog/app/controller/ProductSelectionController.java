@@ -34,6 +34,8 @@ public class ProductSelectionController extends BaseController{
 
         //controller
         String mainFeature = serchProductInput.getMainFeature();
+        log.info("Main Feature");
+        log.info(mainFeature);
         List<String> features = serchProductInput.getFeatures();
         log.info("Feature List");
         log.info(features.toString());
@@ -48,6 +50,7 @@ public class ProductSelectionController extends BaseController{
     @GetMapping(value = "/{productId}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GrabProductOutput>  searchDeals(@Validated @PathVariable("productId")Long productId) throws Exception{
 
+        log.info("ProductId"  + productId);
         GrabProductOutput grabProductOutput =  productGrabService.ProductGrab(productId);
         return ResponseEntity.status(HttpStatus.OK).body(grabProductOutput);
 

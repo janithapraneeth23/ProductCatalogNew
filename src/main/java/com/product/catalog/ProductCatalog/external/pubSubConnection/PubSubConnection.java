@@ -61,6 +61,7 @@ public class PubSubConnection {
         try {
             subscriber = Subscriber.newBuilder(subscriptionName, receiver).build();
             // Start the subscriber.subscriber.startAsync().awaitRunning();
+            subscriber.startAsync().awaitRunning();
             log.info("Trying to Listening for messages on " +  subscriptionName.toString());
             // Allow the subscriber to run for 30s unless an unrecoverable error occurs.
             //subscriber.awaitTerminated(30, TimeUnit.SECONDS);

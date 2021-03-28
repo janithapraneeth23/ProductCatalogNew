@@ -24,6 +24,7 @@ public class ProductSelectionService {
     public SearchProductOutput ProductSelection(String mainFeature, Set<String> tagSet) {
         List<Product> productList = noSqlService.ProductSelectionNoSqlService(mainFeature);
 
+        log.info("Product Count From Database: " +  productList.size());
         log.info("Fetching Images");
         for (Product p1 : productList) {
             log.info(p1.toString());

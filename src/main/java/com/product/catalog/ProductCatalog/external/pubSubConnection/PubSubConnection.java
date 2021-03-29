@@ -71,9 +71,5 @@ public class PubSubConnection {
             log.error("Pub/Sub Failed Exception");
             //subscriber.stopAsync();
         }
-
-
-
-
     }
 }

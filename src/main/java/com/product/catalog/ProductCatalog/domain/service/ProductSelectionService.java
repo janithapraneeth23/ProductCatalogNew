@@ -25,11 +25,6 @@ public class ProductSelectionService {
         List<Product> productList = noSqlService.ProductSelectionNoSqlService(mainFeature);
 
         log.info("Product Count From Database: " +  productList.size());
-        log.info("Fetching Images");
-        for (Product p1 : productList) {
-            log.info(p1.toString());
-            p1.setImage(storageCalls.fetchImageFromBucket(p1.getId().toString()));
-        }
 
         HashMap<Product, Integer> mapSortByTagCount = new HashMap();
         for(Product p1: productList) {
@@ -49,7 +44,10 @@ public class ProductSelectionService {
         List<SearchProductOutputDataItem> searchProductOutputDataItemList =  new ArrayList();
         int itemCont = 0;
         for(Map.Entry<Product, Integer> p1: reverseSortedMap.entrySet()) {
-            searchProductOutputDataItemList.add(new SearchProductOutputDataItem(p1.getKey()));
+            SearchProductOutputDataItem tmpOutputItem = new SearchProductOutputDataItem(p1.getKey());
+            log.info("Product Filtered" + p1.toString());
+            tmpOutputItem.setImage(storageCalls.fetchImageFromBucket(tmpOutputItem.getId().toString()));
+            searchProductOutputDataItemList.add(tmpOutputItem);
             itemCont++;
             if(itemCont >= 10)
                 break;

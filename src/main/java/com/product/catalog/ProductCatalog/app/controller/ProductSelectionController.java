@@ -45,8 +45,6 @@ public class ProductSelectionController extends BaseController{
         return productSelectionService.ProductSelection(mainFeature, tagSet);
     }
 
-
-
     @GetMapping(value = "/{productId}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GrabProductOutput>  searchDeals(@Validated @PathVariable("productId")Long productId) throws Exception{
 
